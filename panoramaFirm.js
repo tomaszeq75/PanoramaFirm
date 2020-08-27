@@ -551,11 +551,8 @@ for (const index in markers) {
     let companies = [];
     let company = markers[index].companies[0];
     if (company.contact != null && company.contact.email != null) {
-        console.log(company.name, " - ", company.contact.email);
-        // if (company.contact.email != null) {
-        //     console.log(company.contact.email);
-        // }
-        // // console.log(company.contact);
+        companies.push(company);
+        console.log(companies[companies.length-1]);
+        // console.log(company.name, " - ", company.contact.email);
     }
-    // console.log( marker.companies[0].contact);
 }
