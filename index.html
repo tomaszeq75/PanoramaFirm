@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PF Reader</title>
-    <script src="panoramaFirm.js"></script>
+    <!-- <script src="panoramaFirm.js"></script> -->
+    <script>
+        function prepareData() {
+            let companiesData = "";
+            for (const index in markers) {
+                let company = markers[index].companies[0];
+                if (company.contact != null && company.contact.email != null) {
+                    companiesData +=
+                        `${company.name};${company.contact.email};${company.address};${company.contact.www}\n`;
+                }
+            }
+
+            download(companiesData, 'dane.csv', 'text/csv');
+        }
+
+        function download(content, fileName, contentType) {
+            var a = document.createElement("a");
+            var file = new Blob([content], {
+                type: contentType
+            });
+            a.href = URL.createObjectURL(file);
+            a.download = fileName;
+            a.click();
+        }
+
+        prepareData();
+    </script>
 </head>
+
 <body>
 
 </body>
+
 </html>
