@@ -557,8 +557,11 @@ function prepareData() {
             companiesData += `${company.name};${company.contact.email};${company.address};${company.contact.www}\n`;
         }
     }
-
+    console.log(companiesData);
     download(companiesData, 'dane.csv', 'text/csv');
+    
+    // następna strona
+    document.getElementsByClassName("addax-cs_hl_nextpage")[0].click();
 }
 
 function download(content, fileName, contentType) {
