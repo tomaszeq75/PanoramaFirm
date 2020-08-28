@@ -1,4 +1,3 @@
-
 var markers = [{
     "coordinates": {
         "lat": 51.5956,
@@ -547,12 +546,41 @@ var phrase = 'samochody używane';
 var page = '31';
 var where = 'łódzkie';
 
-for (const index in markers) {
-    let companies = [];
-    let company = markers[index].companies[0];
-    if (company.contact != null && company.contact.email != null) {
-        companies.push(company);
-        console.log(companies[companies.length-1]);
-        // console.log(company.name, " - ", company.contact.email);
+
+
+
+
+// let companies = [];
+// let companiesData = "";
+// for (const index in markers) {
+//     let company = markers[index].companies[0];
+//     if (company.contact != null && company.contact.email != null) {
+//         companies.push(company);
+//         companiesData += `${company.name};${company.contact.email};${company.address};${company.contact.www}\n`;
+//         // console.log(company.name, " - ", company.contact.email);
+//     }
+// }
+// console.log(companiesData);
+
+function prepareData() {
+    let companiesData = "";
+    for (const index in markers) {
+        let company = markers[index].companies[0];
+        if (company.contact != null && company.contact.email != null) {
+            companiesData += `${company.name};${company.contact.email};${company.address};${company.contact.www}\n`;
+        }
     }
+
+    download(companiesData, 'dane.csv', 'text/csv');
 }
+
+function download(content, fileName, contentType) {
+    var a = document.createElement("a");
+    var file = new Blob([content], {type: contentType});
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+}
+
+prepareData();
+
