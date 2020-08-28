@@ -560,11 +560,13 @@ function prepareData() {
     console.log(companiesData);
     download(companiesData, 'dane.csv', 'text/csv');
     
-    // następna strona
-    document.getElementsByClassName("addax-cs_hl_nextpage")[0].click();
+    // następna strona 
+    setTimeout(function () {
+        document.getElementsByClassName("addax-cs_hl_nextpage")[0].click();
+    }, 500);
 }
 
-function download(content, fileName, contentType) {
+function download(content, fileName = 'dane.csv', contentType = 'text/csv') {
     var a = document.createElement("a");
     var file = new Blob([content], {
         type: contentType
