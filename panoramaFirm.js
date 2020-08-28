@@ -547,26 +547,13 @@ var page = '31';
 var where = 'łódzkie';
 
 
-
-
-
-// let companies = [];
-// let companiesData = "";
-// for (const index in markers) {
-//     let company = markers[index].companies[0];
-//     if (company.contact != null && company.contact.email != null) {
-//         companies.push(company);
-//         companiesData += `${company.name};${company.contact.email};${company.address};${company.contact.www}\n`;
-//         // console.log(company.name, " - ", company.contact.email);
-//     }
-// }
-// console.log(companiesData);
+// wkleić to poniżej w konsoli strony
 
 function prepareData() {
     let companiesData = "";
     for (const index in markers) {
         let company = markers[index].companies[0];
-        if (company.contact != null && company.contact.email != null) {
+        if (company.contact != null && (company.contact.email != null || company.contact.www != null)) {
             companiesData += `${company.name};${company.contact.email};${company.address};${company.contact.www}\n`;
         }
     }
@@ -576,11 +563,12 @@ function prepareData() {
 
 function download(content, fileName, contentType) {
     var a = document.createElement("a");
-    var file = new Blob([content], {type: contentType});
+    var file = new Blob([content], {
+        type: contentType
+    });
     a.href = URL.createObjectURL(file);
     a.download = fileName;
     a.click();
 }
 
 prepareData();
-
