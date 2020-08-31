@@ -564,8 +564,11 @@ function prepareData() {
     download(companiesData, 'dane.csv', 'text/csv');
 
     // następna strona 
+    let nextButton = document.getElementsByClassName("addax-cs_hl_nextpage")[0];
     setTimeout(function () {
-        document.getElementsByClassName("addax-cs_hl_nextpage")[0].click();
+        if (nextButton) {
+            nextButton.click();
+        } else { alert("To była ostatnia strona!");}
     }, 500);
 }
 
