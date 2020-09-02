@@ -553,10 +553,13 @@ function prepareData() {
     let companiesData = "";
     for (const index in markers) {
         let company = markers[index].companies[0];
+        let phone = "";
         if (company.contact != null && (company.contact.email != null || company.contact.www != null)) {
             let email = company.contact.email ? company.contact.email : "";
             let www = company.contact.www ? company.contact.www : "";
-            let phone = company.contact.phone.formatted ? company.contact.phone.formatted : "";
+            if (company.contact.phone && company.contact.phone.formatted) {
+                phone = company.contact.phone.formatted;
+            }
             companiesData += `${company.name};${email};${company.address};${www};${phone}\n`;
         }
     }
