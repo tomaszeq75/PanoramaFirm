@@ -557,7 +557,7 @@ function prepareData() {
         if (company.contact != null && (company.contact.email != null || company.contact.www != null)) {
             let email = company.contact.email ? company.contact.email : "";
             let www = company.contact.www ? company.contact.www : "";
-            if (company.contact.phone && company.contact.phone.formatted) {
+            if (company.contact.phone) {
                 phone = company.contact.phone.formatted;
             }
             companiesData += `${company.name};${email};${company.address};${www};${phone}\n`;
@@ -571,7 +571,9 @@ function prepareData() {
     setTimeout(function () {
         if (nextButton) {
             nextButton.click();
-        } else { alert("To była ostatnia strona!");}
+        } else {
+            alert("To była ostatnia strona!");
+        }
     }, 500);
 }
 
@@ -585,4 +587,28 @@ function download(content, fileName = 'dane.csv', contentType = 'text/csv') {
     a.click();
 }
 
-prepareData();
+// prepareData();
+
+
+
+/// numery telefonów sprawdzanie czy nie stacjonarne
+
+let prefix = [12, 13, 14, 15, 16, 17, 18, 22, 23, 24,
+    25, 29, 32, 33, 34, 41, 42, 43, 44, 46, 48, 52, 54, 55, 56, 58, 59,
+    61, 62, 63, 65, 67, 68, 71, 74, 75, 76, 77, 81, 82, 83, 84, 85, 86, 87, 89, 91, 94, 95
+];
+
+var numbers = document.querySelector(".numbers").innerText.split(" ");
+console.log(numbers,prefix);
+
+function checkNumbers(numbers) {
+    for (const index in numbers) {
+        const first2Digits = numbers[index].slice(0,2);
+        if (prefix.includes(+first2Digits)) {
+            console.log(numbers[index]);
+            numbers.splice(index, 1);        
+        }
+    }
+    console.log(numbers.lenght);
+}
+checkNumbers(numbers)
