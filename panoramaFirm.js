@@ -595,20 +595,44 @@ function download(content, fileName = 'dane.csv', contentType = 'text/csv') {
 
 let prefix = [12, 13, 14, 15, 16, 17, 18, 22, 23, 24,
     25, 29, 32, 33, 34, 41, 42, 43, 44, 46, 48, 52, 54, 55, 56, 58, 59,
-    61, 62, 63, 65, 67, 68, 71, 74, 75, 76, 77, 81, 82, 83, 84, 85, 86, 87, 89, 91, 94, 95
+    61, 62, 63, 65, 67, 68, 71, 74, 75, 76, 77, 81, 82, 83, 84, 85, 86, 87, 89, 91, 94, 95, 80, 70
 ];
 
-var numbers = document.querySelector(".numbers").innerText.split(" ");
-console.log(numbers,prefix);
+let numbers = document.querySelector(".numbers").innerText.split(",");
+let numbersFiltered = [];
+console.log(numbers, prefix);
+
+function removeTooShort(nums) {
+    let newNums = [];
+    nums.forEach(element => {
+        if (element.length == 9) {
+            newNums.push(element)
+        }
+    });
+    console.log(newNums);
+    return newNums;
+}
 
 function checkNumbers(numbers) {
-    for (const index in numbers) {
-        const first2Digits = numbers[index].slice(0,2);
-        if (prefix.includes(+first2Digits)) {
-            console.log(numbers[index]);
-            numbers.splice(index, 1);        
-        }
+    let newNums = [];
+    let badNums = [];
+    for (let i = 0; i < numbers.length; i++) {
+        const first2Digits = +numbers[i].slice(0, 2);
+        prefix.forEach(element => {
+            console.log(element, typeof element, first2Digits, typeof first2Digits, element == first2Digits);
+            if (element == +first2Digits) {
+                numbers.splice(i--,1);
+                console.log(numbers[i],first2Digits);
+                return;
+            } 
+        });
     }
-    console.log(numbers.lenght);
+    console.log(newNums);
+    console.log(badNums);
 }
-checkNumbers(numbers)
+
+numbersFiltered = removeTooShort(numbers)
+console.log(numbersFiltered);
+checkNumbers(numbersFiltered);
+console.log(numbersFiltered);
+document.querySelector(".filtered").innerText = numbersFiltered;
